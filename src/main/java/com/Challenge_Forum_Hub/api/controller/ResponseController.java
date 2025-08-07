@@ -3,6 +3,7 @@ package com.Challenge_Forum_Hub.api.controller;
 import com.Challenge_Forum_Hub.api.models.ResponseDto;
 import com.Challenge_Forum_Hub.domain.repository.ResponseRepository;
 import com.Challenge_Forum_Hub.domain.service.ResponseService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +15,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/responses")
+@RequestMapping("/respostas")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearer-key")
 public class ResponseController {
 
 

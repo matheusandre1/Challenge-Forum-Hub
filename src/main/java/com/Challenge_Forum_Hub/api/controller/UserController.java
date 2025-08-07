@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/usuario")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -31,5 +31,7 @@ public class UserController {
     public User editUser(@PathVariable UUID id, @RequestBody @Valid UserDto userDto) {
         return userService.editUser(id, userDto);
     }
+
+
 
 }

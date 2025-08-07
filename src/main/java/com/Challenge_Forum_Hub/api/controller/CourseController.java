@@ -2,6 +2,7 @@ package com.Challenge_Forum_Hub.api.controller;
 
 import com.Challenge_Forum_Hub.api.models.CourseDto;
 import com.Challenge_Forum_Hub.domain.service.CourseService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/courses")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearer-key")
 public class CourseController
 {
     private final CourseService courseService;

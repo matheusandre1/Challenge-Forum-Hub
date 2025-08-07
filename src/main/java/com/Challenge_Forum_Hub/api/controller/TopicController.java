@@ -2,9 +2,14 @@ package com.Challenge_Forum_Hub.api.controller;
 
 import com.Challenge_Forum_Hub.api.models.TopicDto;
 import com.Challenge_Forum_Hub.api.models.TopicResponseDto;
+import com.Challenge_Forum_Hub.domain.repository.TopicRepository;
 import com.Challenge_Forum_Hub.domain.service.TopicService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +20,11 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/topics")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearer-key")
 public class TopicController {
 
     private final TopicService topicService;
+    private final TopicRepository topicRepository;
 
 
     @PostMapping
@@ -48,6 +55,15 @@ public class TopicController {
         topicService.deleteTopic(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping
+    public ResponseEntity<Page<TopicResponseDto>> getAllTopics(@PageableDefault(size = 10, sort = {"title"}) Pageable pageable)
+    {
+        var page = topicRepository.findAll(pageable)
+                .map(TopicResponseDto::new);
+        return ResponseEntity.ok(page);
+    }
+
 
 
 
